@@ -31,7 +31,7 @@ DECIMAL 2 CONSTANT HUNK_DATA
 
 
 VARIABLE ReadBuffer
-: read-char	( fd -- c )
+: read-char ( fd -- c )
 	ReadBuffer 1 rot read-file throw
 	1 <> throw
 	ReadBuffer @
@@ -154,6 +154,7 @@ VARIABLE ReadBuffer
 	ENDCASE
 ;
 
+
 : dump-hunks ( fd -- )
 	>r
 	BEGIN
@@ -166,14 +167,17 @@ VARIABLE ReadBuffer
 	rdrop
 ;
 
+
 : dump-header ( fd -- )
 	dup dump-prologue cr cr
-	dump-hunks
 ;
+
 
 : dump-fd ( fd -- )
 	dump-header
+	dump-hunks
 ;
+
 
 : dump-name ( c-addr u -- )
 	open-input 0= IF
